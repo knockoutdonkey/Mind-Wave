@@ -4,9 +4,11 @@ using UnityEngine;
 public class Floor : MonoBehaviour {
 
     private Dictionary<string, Tile> _tiles;
+    private List<Gateway> _gateways; 
 
     void Awake() {
         _tiles = new Dictionary<string, Tile>();
+        _gateways = new List<Gateway>();
 
         var rooms = GetComponentsInChildren<Room>();
         foreach (var room in rooms) {
@@ -15,6 +17,13 @@ public class Floor : MonoBehaviour {
             foreach (var tile in tiles) {
                 var point = new Point(tile.transform.localPosition);
                 _tiles[point.X + " " + point.Y] = tile;
+            }
+
+            var gateways = room.GetComponentsInChildren<Gateway>();
+            foreach (var gate in gateways)
+            {
+                gate.findConnectedRooms(this);
+                _gateways.Add(gate);
             }
         }
     }

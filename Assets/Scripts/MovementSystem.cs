@@ -70,7 +70,7 @@ public class MovementSystem : MonoBehaviour {
                             var neighborPoint = new Point(nodePoint.X + x, nodePoint.Y + y);
                             var neighborTile = _currentFloor.GetTile(neighborPoint);
 
-                            if (neighborTile != null) {
+                            if (neighborTile != null && !neighborTile.blocking) {
                                 var extraDistance = Mathf.Sqrt(x * x + y * y);
                                 var newDistance = node.Distance + extraDistance;
                                 var newNode = new Node(newDistance, neighborTile, node);
