@@ -22,6 +22,12 @@ public class MovementSystem : MonoBehaviour {
 
             var startTile = _currentFloor.GetTile(actorPos);
             var endTile = SelectedTile;
+
+            if (startTile == null) {
+                Debug.Log("Character is not on a tile: " + actorPos);
+                return;
+            }
+
             var path = FindPath(startTile, endTile);
 
             actor.GivePath(path);
@@ -36,6 +42,7 @@ public class MovementSystem : MonoBehaviour {
         var nodes = new Dictionary<string, Node>();
 
         var startNode = new Node(0, startTile, null);
+
         nodes[startTile.GetPoint().GetCoord()] = startNode;
 
         var tileSearched = true;

@@ -13,8 +13,8 @@ public class Floor : MonoBehaviour {
 
             var tiles = room.GetComponentsInChildren<Tile>();
             foreach (var tile in tiles) {
-                var pos = tile.transform.localPosition;
-                _tiles[Mathf.RoundToInt(pos.x) + " " + Mathf.RoundToInt(pos.y)] = tile;
+                var point = new Point(tile.transform.localPosition);
+                _tiles[point.X + " " + point.Y] = tile;
             }
         }
     }
@@ -34,6 +34,6 @@ public class Floor : MonoBehaviour {
     }
 
     public Tile GetTile(Vector3 position) {
-        return GetTile((int)position.x, (int)position.y);
+        return GetTile(new Point(position));
     }
 }
