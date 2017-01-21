@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class InputSystem : MonoBehaviour {
 
@@ -35,6 +33,10 @@ public class InputSystem : MonoBehaviour {
                     moveTarget.SelectMove();
                 }
             }
+        }
+
+        if (Input.GetKeyDown("r")) {
+            SceneLoader.RestartCurrentLevel();
         }
     }
 

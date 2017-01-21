@@ -16,6 +16,10 @@ public class Actor : MonoBehaviour {
         _actorMover = GetComponent<ActorMover>();
     }
 
+    public void Start() {
+        ActorSystem.Instance.RegisterActor(this);
+    }
+
     private void SelectTarget_Selected(object sender, EventArgs e) {
         ActorSystem.Instance.SelectActor(this);
     }

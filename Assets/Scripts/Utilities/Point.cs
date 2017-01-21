@@ -21,4 +21,13 @@ public struct Point {
     public override string ToString() {
         return "Point: " + GetCoord();
     }
+
+    public override bool Equals(object obj) {
+        var otherPoint = (Point)obj;
+        return otherPoint.X == X & otherPoint.Y == Y;
+    }
+
+    public override int GetHashCode() {
+        return X*10000 + Y;
+    }
 }

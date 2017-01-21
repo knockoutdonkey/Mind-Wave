@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour {
 
-    private Dictionary<string, Tile> _tiles;
+    private Dictionary<Point, Tile> _tiles;
 
     void Awake() {
-        _tiles = new Dictionary<string, Tile>();
+        _tiles = new Dictionary<Point, Tile>();
 
         var rooms = GetComponentsInChildren<Room>();
         foreach (var room in rooms) {
@@ -14,7 +14,7 @@ public class Floor : MonoBehaviour {
             var tiles = room.GetComponentsInChildren<Tile>();
             foreach (var tile in tiles) {
                 var point = new Point(tile.transform.localPosition);
-                _tiles[point.X + " " + point.Y] = tile;
+                _tiles[point] = tile;
             }
         }
     }
@@ -24,13 +24,13 @@ public class Floor : MonoBehaviour {
     }
 
     public Tile GetTile(int x, int y) {
-        Tile tile = null;
-        _tiles.TryGetValue(x + " " + y, out tile);
-        return tile;
+        return GetTile(new Point(x, y));
     }
 
     public Tile GetTile(Point point) {
-        return GetTile(point.X, point.Y);
+        Tile tile = null;
+        _tiles.TryGetValue(point, out tile);
+        return tile;
     }
 
     public Tile GetTile(Vector3 position) {
