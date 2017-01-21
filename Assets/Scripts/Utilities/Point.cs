@@ -10,8 +10,8 @@ public struct Point {
     }
 
     public Point(Vector3 position) {
-        X = (int)position.x;
-        Y = (int)position.y;
+        X = Mathf.RoundToInt(position.x);
+        Y = Mathf.RoundToInt(position.y);
     }
 
     public string GetCoord() {

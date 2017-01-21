@@ -13,7 +13,7 @@ public class Floor : MonoBehaviour {
 
             var tiles = room.GetComponentsInChildren<Tile>();
             foreach (var tile in tiles) {
-                var pos = tile.transform.position;
+                var pos = tile.transform.localPosition;
                 _tiles[Mathf.RoundToInt(pos.x) + " " + Mathf.RoundToInt(pos.y)] = tile;
             }
         }

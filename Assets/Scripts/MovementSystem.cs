@@ -20,7 +20,6 @@ public class MovementSystem : MonoBehaviour {
         if (actor != null) {
             var actorPos = actor.transform.localPosition;
 
-            Debug.Log(actorPos);
             var startTile = _currentFloor.GetTile(actorPos);
             var endTile = SelectedTile;
             var path = FindPath(startTile, endTile);
@@ -39,7 +38,6 @@ public class MovementSystem : MonoBehaviour {
         var startNode = new Node(0, startTile, null);
         nodes[startTile.GetPoint().GetCoord()] = startNode;
 
-        var currentDistance = 0f;
         var tileSearched = true;
         while (tileSearched) { // fix this if to end if no more new tiles
 
@@ -50,13 +48,14 @@ public class MovementSystem : MonoBehaviour {
 
                 var nodePoint = node.Tile.GetPoint();
 
-                if (node.Distance >= currentDistance) {
+                if (!node.Visited) {
                     tileSearched = true;
 
                     // Check if the node is the final node.
                     if (node.Tile == endTile) {
                         return CreatePath(node);
                     }
+                    node.Visited = true;
 
                     // Add all neighbors as new nodes.
                     for (int x = -1; x <= 1; x++) {
@@ -89,9 +88,8 @@ public class MovementSystem : MonoBehaviour {
         var path = new List<Tile>();
         var currentNode = targetNode;
 
-        while (currentNode != null) {
-
-            path.Add(currentNode.Tile);
+        while (currentNode.PreviousNode != null) {
+            path.Insert(0, currentNode.Tile);
             currentNode = currentNode.PreviousNode;
         }
 
@@ -102,11 +100,13 @@ public class MovementSystem : MonoBehaviour {
         public float Distance;
         public Tile Tile;
         public Node PreviousNode;
+        public bool Visited;
 
         public Node(float distance, Tile tile, Node previousNode) {
             Distance = distance;
             Tile = tile;
             PreviousNode = previousNode;
+            Visited = false;
         }
     }
 }

@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour {
     }
 
     public Point GetPoint() {
-        return new Point(transform.position);
+        return new Point(transform.localPosition);
     }
 
     public void Highlight() {

@@ -11,8 +11,8 @@ public class Room : MonoBehaviour {
 
         var tiles = GetComponentsInChildren<Tile>();
         foreach (var tile in tiles) {
-            var pos = tile.transform.position;
-            _tiles[((int)pos.x) + " " + ((int)pos.y)] = tile;
+            var pos = tile.transform.localPosition;
+            _tiles[Mathf.RoundToInt(pos.x) + " " + Mathf.RoundToInt(pos.y)] = tile;
         }
 	}
 
