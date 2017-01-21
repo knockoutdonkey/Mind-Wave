@@ -88,7 +88,7 @@ public class MovementSystem : MonoBehaviour {
         var path = new List<Tile>();
         var currentNode = targetNode;
 
-        while (currentNode.PreviousNode != null) {
+        while (currentNode != null) {
             path.Insert(0, currentNode.Tile);
             currentNode = currentNode.PreviousNode;
         }
