@@ -18,8 +18,9 @@ public class MovementSystem : MonoBehaviour {
         SelectedTile = tile;
         var actor = ActorSystem.Instance.SelectedActor;
         if (actor != null) {
-            var actorPos = actor.transform.position;
+            var actorPos = actor.transform.localPosition;
 
+            Debug.Log(actorPos);
             var startTile = _currentFloor.GetTile(actorPos);
             var endTile = SelectedTile;
             var path = FindPath(startTile, endTile);
