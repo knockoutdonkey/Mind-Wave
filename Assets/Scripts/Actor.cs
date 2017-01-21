@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Actor : MonoBehaviour {
@@ -19,6 +20,12 @@ public class Actor : MonoBehaviour {
             transform.rotation = Quaternion.Euler(0, 0, 90);
         } else {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    public void GivePath(List<Tile> path) {
+        foreach (var tile in path) {
+            tile.Highlight();
         }
     }
 }

@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Actor.cs" />
     <Compile Include="Assets\Scripts\ActorSystem.cs" />
+    <Compile Include="Assets\Scripts\Floor.cs" />
     <Compile Include="Assets\Scripts\GridElement.cs" />
     <Compile Include="Assets\Scripts\InputSystem.cs" />
     <Compile Include="Assets\Scripts\MoveTarget.cs" />
@@ -84,6 +85,8 @@
     <Compile Include="Assets\Scripts\Room.cs" />
     <Compile Include="Assets\Scripts\SelectTarget.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Logger.cs" />
+    <Compile Include="Assets\Scripts\Utilities\Point.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

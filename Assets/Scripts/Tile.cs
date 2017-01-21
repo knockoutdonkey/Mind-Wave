@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tile : MonoBehaviour {
 
@@ -17,5 +16,16 @@ public class Tile : MonoBehaviour {
 
     private void MoveTarget_MoveSelected(object sender, EventArgs e) {
         MovementSystem.Instance.SelectTile(this);
+    }
+
+    public Point GetPoint() {
+        return new Point(transform.position);
+    }
+
+    public void Highlight() {
+        var image = GetComponent<Image>();
+        if (image != null) {
+            image.color = Color.cyan;
+        }
     }
 }
