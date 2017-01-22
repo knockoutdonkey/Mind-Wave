@@ -28,4 +28,13 @@ public class Tile : MonoBehaviour {
             image.color = Color.cyan;
         }
     }
+
+    public void Highlight(Color color)
+    {
+        var image = GetComponent<Image>();
+        if (image != null)
+        {
+            image.color = color;
+        }
+    }
 }
