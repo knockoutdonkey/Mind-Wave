@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\Room.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />
     <Compile Include="Assets\Scripts\SelectTarget.cs" />
+    <Compile Include="Assets\Scripts\SetSunlight.cs" />
     <Compile Include="Assets\Scripts\Tile.cs" />
     <Compile Include="Assets\Scripts\Utilities\Logger.cs" />
     <Compile Include="Assets\Scripts\Utilities\Point.cs" />
