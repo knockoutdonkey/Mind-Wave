@@ -9,54 +9,32 @@ public class Gateway : MonoBehaviour
 
     public Tile Exit;
 
-    public Room[] connectedRooms = new Room[2];
+    public List<Room> _rooms;
+
+    void Awake()
+    {
+        _rooms = new List<Room>();
+    }
 
     public void findConnectedRooms(Floor floor)
     {
-        int roomsIdx =0;
-        // Add all neighbors as new nodes.
-        for (int x = -1; x <= 1; x++)
-        {
-            for (int y = -1; y <= 1; y++)
-            {
-                if (roomsIdx > 1)
-                {
-                    break;
-                }
-                var gateTile = GetComponent<Tile>();
-                var neighborTile = floor.GetTile(gateTile.transform.position);
-                if (neighborTile != null)
-                {
-                    connectedRooms[roomsIdx] = neighborTile.GetComponentInParent<Room>();
-                }
-                roomsIdx++;
-            }
-        }
+        addRoom(floor, 1, 0);
+        addRoom(floor, -1, 0);
+        addRoom(floor, 0, 1);
+        addRoom(floor, 0, -1);
     }
 
-    public Room getNeighbor(Room start)
+    private void addRoom(Floor floor, int xOffset, int yOffset)
     {
-        bool connected = false;
-        Room Neighbor = null;
-        foreach (Room room in connectedRooms)
+        var gateTile = GetComponent<Tile>();
+        var neighborPoint = new Point(gateTile.transform.localPosition, xOffset, yOffset);
+        var neighborTile = floor.GetTile(neighborPoint);
+        if (neighborTile != null)
         {
+            Room connectedRoom = neighborTile.GetComponentInParent<Room>();
+            _rooms.Add(connectedRoom);
+            connectedRoom.AddGateway(this);
+        }
 
-            if (room.name == start.name)
-            {
-                connected = true;
-            }
-            else
-            {
-                Neighbor = room;
-            }
-            
-        }
-        if (connected)
-        {
-            return Neighbor;
-        }
-        return null;
     }
-
-
 }

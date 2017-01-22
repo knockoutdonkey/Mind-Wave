@@ -20,14 +20,28 @@ public class ActorSystem : MonoBehaviour {
     }
 
     public void SelectActor(Actor actor) {
-        if (SelectedActor != null) {
-            SelectedActor.SetSelected(false);
-        }
+        Floor currentFloor = Floor.GetCurrentFloor();
 
-        SelectedActor = (SelectedActor == actor) ? null : actor;
+        Tile actorsTile = currentFloor.GetTile(actor.transform.localPosition);
+        Logger.Log(actorsTile);
+       
+        Radio.instance.checkRadio();
+        Floor.GetCurrentFloor().TempColorRoomTiles();
+        Room actorsRoom = actorsTile.GetComponentInParent<Room>();
+        if (actorsRoom.radioWaveActive)
+        {
 
-        if (SelectedActor != null) {
-            SelectedActor.SetSelected(true);
+            if (SelectedActor != null)
+            {
+                SelectedActor.SetSelected(false);
+            }
+
+            SelectedActor = (SelectedActor == actor) ? null : actor;
+
+            if (SelectedActor != null)
+            {
+                SelectedActor.SetSelected(true);
+            }
         }
     }
 }

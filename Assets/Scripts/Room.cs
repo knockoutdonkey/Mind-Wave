@@ -5,9 +5,17 @@ using UnityEngine;
 public class Room : MonoBehaviour {
 
     private Dictionary<Point, Tile> _tiles;
+    private List<Gateway> _gateways;
 
-	void Awake () {
+    public bool radioWaveActive;
+
+	void Awake ()
+	{
+        _gateways = new List<Gateway>();
+
+        radioWaveActive = false;
         _tiles = new Dictionary<Point, Tile>();
+
 
         var tiles = GetComponentsInChildren<Tile>();
         foreach (var tile in tiles) {
@@ -21,4 +29,33 @@ public class Room : MonoBehaviour {
         _tiles.TryGetValue(new Point(x, y), out tile);
         return tile;
     }
+
+    public void AddGateway(Gateway gate)
+    {
+        if (!_gateways.Contains(gate))
+        {
+            _gateways.Add(gate);
+        }
+
+    }
+
+    public void SendRadioWaves()
+    {
+        foreach (Gateway gateway in _gateways)
+        {
+            foreach (Room room in gateway._rooms)
+            {
+                room.radioWaveActive = true;
+            }
+        }
+    }
+
+    public void colorTiles(Color color)
+    {
+        foreach (KeyValuePair<Point,Tile> tile in _tiles)
+        {
+            tile.Value.Highlight(color);
+        }
+    }
+
 }

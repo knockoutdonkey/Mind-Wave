@@ -14,6 +14,14 @@ public struct Point {
         Y = Mathf.RoundToInt(position.y);
     }
 
+    public Point(Vector3 position , int xOffset, int yOffset)
+    {
+        X = Mathf.RoundToInt(position.x);
+        Y = Mathf.RoundToInt(position.y);
+        X += xOffset;
+        Y += yOffset;
+    }
+
     public string GetCoord() {
         return X + " " + Y;
     }

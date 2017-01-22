@@ -1,24 +1,50 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Floor : MonoBehaviour {
+public class Floor : MonoBehaviour
+{
+    private static Floor CurrentFloor;
 
     private Dictionary<Point, Tile> _tiles;
-    private List<Gateway> _gateways; 
+    private List<Gateway> _gateways;
 
+ 
     void Awake() {
         _tiles = new Dictionary<Point, Tile>();
         _gateways = new List<Gateway>();
 
         var rooms = GetComponentsInChildren<Room>();
-        foreach (var room in rooms) {
+        foreach (var room in rooms)
+        {
 
             var tiles = room.GetComponentsInChildren<Tile>();
-            foreach (var tile in tiles) {
+            foreach (var tile in tiles)
+            {
                 var point = new Point(tile.transform.localPosition);
                 _tiles[point] = tile;
             }
 
+            
+        }
+    }
+
+
+    public static Floor GetCurrentFloor()
+    {
+        return CurrentFloor;
+    }
+
+    void Start()
+    {
+        if (CurrentFloor == null)
+        {
+            CurrentFloor = this;
+        }
+        MovementSystem.Instance.SetCurrentFloor(this);
+        var rooms = GetComponentsInChildren<Room>();
+        
+        foreach (var room in rooms)
+        {
             var gateways = room.GetComponentsInChildren<Gateway>();
             foreach (var gate in gateways)
             {
@@ -26,11 +52,10 @@ public class Floor : MonoBehaviour {
                 _gateways.Add(gate);
             }
         }
+
     }
 
-    void Start() {
-        MovementSystem.Instance.SetCurrentFloor(this);
-    }
+
 
     public Tile GetTile(int x, int y) {
         return GetTile(new Point(x, y));
@@ -40,9 +65,37 @@ public class Floor : MonoBehaviour {
         Tile tile = null;
         _tiles.TryGetValue(point, out tile);
         return tile;
+
     }
 
-    public Tile GetTile(Vector3 position) {
+    public Tile GetTile(Vector3 position)
+    {
         return GetTile(new Point(position));
+    }
+
+    public void CleanRadioWaves()
+    {
+
+        var rooms = GetComponentsInChildren<Room>();
+        foreach (var room in rooms)
+        {
+            room.radioWaveActive = false;
+        }
+    }
+
+    public void TempColorRoomTiles()
+    {
+        var rooms = GetComponentsInChildren<Room>();
+        foreach (var room in rooms)
+        {
+            if (room.radioWaveActive)
+            {
+                room.colorTiles(Color.yellow);
+            }
+            else
+            {
+                room.colorTiles(Color.white);
+            }
+    }
     }
 }
