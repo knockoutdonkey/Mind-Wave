@@ -23,14 +23,17 @@ public class ActorSystem : MonoBehaviour {
         Floor currentFloor = Floor.GetCurrentFloor();
 
         Tile actorsTile = currentFloor.GetTile(actor.transform.localPosition);
-        Logger.Log(actorsTile);
-       
+        
         Radio.instance.checkRadio();
         Floor.GetCurrentFloor().TempColorRoomTiles();
         Room actorsRoom = actorsTile.GetComponentInParent<Room>();
         if (actorsRoom.radioWaveActive)
         {
-
+            if (SelectedActor == actor)
+            {
+                SelectedActor.SetSelected(false);
+                SelectedActor.GivePath(MovementSystem.FindPath(actorsTile, actor.HomeTile));
+            }
             if (SelectedActor != null)
             {
                 SelectedActor.SetSelected(false);

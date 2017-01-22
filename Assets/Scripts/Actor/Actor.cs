@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Actor : MonoBehaviour {
 
     private ActorMover _actorMover;
+    public Tile HomeTile;
     
     public void Awake() {
         var selectTarget = GetComponent<SelectTarget>();
@@ -18,6 +20,7 @@ public class Actor : MonoBehaviour {
 
     public void Start() {
         ActorSystem.Instance.RegisterActor(this);
+        HomeTile = Floor.GetCurrentFloor().GetTile(this.transform.localPosition);
     }
 
     private void SelectTarget_Selected(object sender, EventArgs e) {
