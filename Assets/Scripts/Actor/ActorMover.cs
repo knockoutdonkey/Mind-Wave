@@ -56,7 +56,6 @@ public class ActorMover : MonoBehaviour {
         }
 
         if (_actorAnimator != null) {
-            Debug.Log("hey");
             _actorAnimator.SetWalkingSpeed(0f);
         }
 
