@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Actor\ActorMover.cs" />
     <Compile Include="Assets\Scripts\Actor\ActorSystem.cs" />
     <Compile Include="Assets\Scripts\Actor\Path.cs" />
+    <Compile Include="Assets\Scripts\DoorAnimator.cs" />
     <Compile Include="Assets\Scripts\Floor.cs" />
     <Compile Include="Assets\Scripts\Gateway.cs" />
     <Compile Include="Assets\Scripts\GridElement.cs" />
