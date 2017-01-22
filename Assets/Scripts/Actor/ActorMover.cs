@@ -142,8 +142,8 @@ public class ActorMover : MonoBehaviour {
                 {
                     gate.open = true;
                     _actor.LastGateway = gate;
-                    Radio.checkRadio();
                 }
+                Radio.checkRadio();
             }
 
             if (!_path.Tiles[0].GetComponentInParent<Room>().radioWaveActive)
