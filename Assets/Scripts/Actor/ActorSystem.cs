@@ -8,8 +8,15 @@ public class ActorSystem : MonoBehaviour {
 
     public Actor SelectedActor;
 
+    // Note: Do not mutate this list from outside this class.
+    public List<Actor> AllActors;
+
     void Awake() {
         Instance = this;
+    }
+
+    public void RegisterActor(Actor actor) {
+        AllActors.Add(actor);
     }
 
     public void SelectActor(Actor actor) {

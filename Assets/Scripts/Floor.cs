@@ -5,14 +5,12 @@ public class Floor : MonoBehaviour
 {
     private static Floor CurrentFloor;
 
-    private Dictionary<string, Tile> _tiles;
+    private Dictionary<Point, Tile> _tiles;
     private List<Gateway> _gateways;
 
-    void Awake()
-    {
-        CurrentFloor = this;
-        Logger.Log(CurrentFloor);
-        _tiles = new Dictionary<string, Tile>();
+ 
+    void Awake() {
+        _tiles = new Dictionary<Point, Tile>();
         _gateways = new List<Gateway>();
 
         var rooms = GetComponentsInChildren<Room>();
@@ -23,7 +21,7 @@ public class Floor : MonoBehaviour
             foreach (var tile in tiles)
             {
                 var point = new Point(tile.transform.localPosition);
-                _tiles[point.X + " " + point.Y] = tile;
+                _tiles[point] = tile;
             }
 
             
@@ -57,16 +55,17 @@ public class Floor : MonoBehaviour
 
     }
 
-    public Tile GetTile(int x, int y)
-    {
-        Tile tile = null;
-        _tiles.TryGetValue(x + " " + y, out tile);
-        return tile;
+
+
+    public Tile GetTile(int x, int y) {
+        return GetTile(new Point(x, y));
     }
 
-    public Tile GetTile(Point point)
-    {
-        return GetTile(point.X, point.Y);
+    public Tile GetTile(Point point) {
+        Tile tile = null;
+        _tiles.TryGetValue(point, out tile);
+        return tile;
+
     }
 
     public Tile GetTile(Vector3 position)

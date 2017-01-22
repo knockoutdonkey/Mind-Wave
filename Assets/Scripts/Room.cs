@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Room : MonoBehaviour {
 
-    private Dictionary<string, Tile> _tiles;
+    private Dictionary<Point, Tile> _tiles;
     private List<Gateway> _gateways;
 
     public bool radioWaveActive;
@@ -14,18 +14,19 @@ public class Room : MonoBehaviour {
         _gateways = new List<Gateway>();
 
         radioWaveActive = false;
-        _tiles = new Dictionary<string, Tile>();
+        _tiles = new Dictionary<Point, Tile>();
+
 
         var tiles = GetComponentsInChildren<Tile>();
         foreach (var tile in tiles) {
             var point = new Point(tile.transform.localPosition);
-            _tiles[point.X + " " + point.Y] = tile;
+            _tiles[point] = tile;
         }
 	}
 
     public Tile GetTile(int x, int y) {
         Tile tile = null;
-        _tiles.TryGetValue(x + " " + y, out tile);
+        _tiles.TryGetValue(new Point(x, y), out tile);
         return tile;
     }
 
@@ -51,7 +52,7 @@ public class Room : MonoBehaviour {
 
     public void colorTiles(Color color)
     {
-        foreach (KeyValuePair<string,Tile> tile in _tiles)
+        foreach (KeyValuePair<Point,Tile> tile in _tiles)
         {
             tile.Value.Highlight(color);
         }
