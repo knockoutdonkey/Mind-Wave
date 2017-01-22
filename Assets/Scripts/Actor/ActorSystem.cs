@@ -21,6 +21,8 @@ public class ActorSystem : MonoBehaviour {
 
     public void SelectActor(Actor actor) {
         
+        if (actor == null) return;
+
         Tile actorsTile = Floor.CurrentFloor.GetTile(actor.transform.localPosition);
         Room actorsRoom = actorsTile.GetComponentInParent<Room>();
         if (actorsRoom.radioWaveActive)
