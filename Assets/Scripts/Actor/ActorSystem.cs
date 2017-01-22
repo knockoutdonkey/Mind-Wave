@@ -25,9 +25,6 @@ public class ActorSystem : MonoBehaviour {
         
         Tile actorsTile = currentFloor.GetTile(actor.transform.localPosition);
 
-        Radio.checkRadio();
-
-        Floor.GetCurrentFloor().TempColorRoomTiles();
         Room actorsRoom = actorsTile.GetComponentInParent<Room>();
         if (actorsRoom.radioWaveActive)
         {
@@ -51,5 +48,8 @@ public class ActorSystem : MonoBehaviour {
                     SelectedActor.SetSelected(true);
             }
         }
+
+        var actorType = (SelectedActor == null) ? ActorType.None : actor.Type;
+        Radio.checkRadio(actorType);
     }
 } 

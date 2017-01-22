@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Actor\ActorAnimator.cs" />
     <Compile Include="Assets\Scripts\Actor\ActorMover.cs" />
     <Compile Include="Assets\Scripts\Actor\ActorSystem.cs" />
+    <Compile Include="Assets\Scripts\Actor\ActorType.cs" />
     <Compile Include="Assets\Scripts\Actor\Path.cs" />
     <Compile Include="Assets\Scripts\DoorAnimator.cs" />
     <Compile Include="Assets\Scripts\Floor.cs" />
