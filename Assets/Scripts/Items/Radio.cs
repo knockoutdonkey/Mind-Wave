@@ -5,7 +5,11 @@ using UnityEngine;
 public class Radio : MonoBehaviour
 {
     public static Radio instance;
-    public AudioClip _RadioClip;
+
+    public AudioClip _staticClip;
+    public AudioClip _momClip;
+    public AudioClip _grampaClip;
+    public AudioClip _mainClip;
 
     private Room currentLocation;
     private ActorType _currentType;
@@ -38,21 +42,21 @@ public class Radio : MonoBehaviour
     {
         var source = GetComponent<AudioSource>();
         if (source != null && soundType != _currentType) {
-            source.Play();
             switch (soundType) {
                 case ActorType.None:
-                    source.pitch = .4f;
+                    source.clip = _staticClip;
                     break;
                 case ActorType.Mom:
-                    source.pitch = 1.4f;
+                    source.clip = _momClip;
                     break;
                 case ActorType.Maid:
-                    source.pitch = 1f;
+                    source.clip = _mainClip;
                     break;
                 case ActorType.Grampa:
-                    source.pitch = -.3f;
+                    source.clip = _grampaClip;
                     break;
             }
+            source.Play();
             _currentType = soundType;
         }
     }

@@ -14,6 +14,13 @@ public class Tile : MonoBehaviour {
         }
     }
 
+    void OnDestroy() {
+        var image = GetComponent<Image>();
+        if (image == null) return;
+
+        image.sprite = null;
+    }
+
     private void MoveTarget_MoveSelected(object sender, EventArgs e) {
         MovementSystem.Instance.SelectTile(this);
     }
@@ -35,17 +42,18 @@ public class Tile : MonoBehaviour {
     }
 
     public void Highlight(Color color, bool isWavy)
-
     {
         var image = GetComponent<Image>();
         if (image == null) return;
 
-        if (isWavy) {
-            image.material = MaterialReference.GetWavyMaterial();
-        } else {
-            image.material = null;
-        }
+        //if (isWavy) {
+        //    image.material = MaterialReference.GetWavyMaterial();
+        //} else {
+        //    image.material = null;
+        //}
 
         image.color = color;
     }
+
+    
 }
