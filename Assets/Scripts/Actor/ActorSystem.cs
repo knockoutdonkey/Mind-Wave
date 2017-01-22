@@ -22,10 +22,6 @@ public class ActorSystem : MonoBehaviour {
     public void SelectActor(Actor actor) {
         
         Tile actorsTile = Floor.CurrentFloor.GetTile(actor.transform.localPosition);
-
-        Radio.checkRadio();
-
-        Floor.CurrentFloor.TempColorRoomTiles();
         Room actorsRoom = actorsTile.GetComponentInParent<Room>();
         if (actorsRoom.radioWaveActive)
         {
@@ -49,5 +45,8 @@ public class ActorSystem : MonoBehaviour {
                     SelectedActor.SetSelected(true);
             }
         }
+
+        // This has to happen after actor selection.
+        Radio.checkRadio();
     }
 } 

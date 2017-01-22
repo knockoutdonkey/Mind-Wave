@@ -82,18 +82,31 @@ public class Floor : MonoBehaviour
         }
     }
 
-    public void TempColorRoomTiles()
+    public void TempColorRoomTiles(ActorType actorType)
     {
         var rooms = GetComponentsInChildren<Room>();
         foreach (var room in rooms)
         {
             if (room.radioWaveActive)
             {
-                room.colorTiles(Color.yellow);
+                switch (actorType) {
+                    case ActorType.None:
+                        room.colorTiles(Color.white, true);
+                        break;
+                    case ActorType.Mom:
+                        room.colorTiles(Color.yellow, true);
+                        break;
+                    case ActorType.Maid:
+                        room.colorTiles(Color.green, true);
+                        break;
+                    case ActorType.Grampa:
+                        room.colorTiles(Color.red, true);
+                        break;
+                }
             }
             else
             {
-                room.colorTiles(Color.white);
+                room.colorTiles(Color.white, false);
             }
     }
     }

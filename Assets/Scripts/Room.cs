@@ -67,11 +67,11 @@ public class Room : MonoBehaviour {
         }
     }
 
-    public void colorTiles(Color color)
+    public void colorTiles(Color color, bool isWavy)
     {
         foreach (KeyValuePair<Point, Tile> tile in _tiles)
         {
-            tile.Value.Highlight(color);
+            tile.Value.Highlight(color, isWavy);
         }
     }
 

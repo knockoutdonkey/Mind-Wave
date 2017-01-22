@@ -16,7 +16,7 @@ public class Actor : MonoBehaviour {
     public Furniture seat;
     public bool sitting;
     public bool Scary = false;
-    
+    public ActorType Type;
     
     public void Awake() {
         var selectTarget = GetComponent<SelectTarget>();
@@ -58,10 +58,7 @@ public class Actor : MonoBehaviour {
     }
 
     public void GivePath(Path path) {
-        Floor.CurrentFloor.TempColorRoomTiles();
-        foreach (var tile in path.Tiles) {
-            tile.Highlight();
-        }
+        Floor.CurrentFloor.TempColorRoomTiles(Type);
         sitting = false;
 
         if (_actorMover != null) {

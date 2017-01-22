@@ -78,7 +78,9 @@
     <Compile Include="Assets\Scripts\Actor\ActorAnimator.cs" />
     <Compile Include="Assets\Scripts\Actor\ActorMover.cs" />
     <Compile Include="Assets\Scripts\Actor\ActorSystem.cs" />
+    <Compile Include="Assets\Scripts\Actor\ActorType.cs" />
     <Compile Include="Assets\Scripts\Actor\Path.cs" />
+    <Compile Include="Assets\Scripts\DoorAnimator.cs" />
     <Compile Include="Assets\Scripts\Floor.cs" />
     <Compile Include="Assets\Scripts\Gateway.cs" />
     <Compile Include="Assets\Scripts\GridElement.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Assets\Scripts\Items\Radio.cs" />
     <Compile Include="Assets\Scripts\Items\Table.cs" />
     <Compile Include="Assets\Scripts\LayeringSystem.cs" />
+    <Compile Include="Assets\Scripts\MaterialReference.cs" />
     <Compile Include="Assets\Scripts\MoveTarget.cs" />
     <Compile Include="Assets\Scripts\MovementSystem.cs" />
     <Compile Include="Assets\Scripts\PixelPerfectCamera.cs" />
@@ -98,6 +101,10 @@
     <Compile Include="Assets\Scripts\Utilities\Logger.cs" />
     <Compile Include="Assets\Scripts\Utilities\Point.cs" />
     <Compile Include="Assets\Scripts\WinLossSystem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Art\Shaders\Dvornik.shader" />
+    <None Include="Assets\Art\Shaders\Wavy.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
