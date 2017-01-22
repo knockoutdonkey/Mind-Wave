@@ -96,11 +96,24 @@ public class Floor : MonoBehaviour
         {
             if (room.radioWaveActive)
             {
-                room.colorTiles(Color.yellow);
+                switch (actorType) {
+                    case ActorType.None:
+                        room.colorTiles(Color.white);
+                        break;
+                    case ActorType.Mom:
+                        room.colorTiles(Color.yellow);
+                        break;
+                    case ActorType.Maid:
+                        room.colorTiles(Color.green);
+                        break;
+                    case ActorType.Grampa:
+                        room.colorTiles(Color.red);
+                        break;
+                }
             }
             else
             {
-                room.colorTiles(Color.white);
+                room.colorTiles(Color.grey);
             }
     }
     }
