@@ -13,6 +13,11 @@ public class Floor : MonoBehaviour
         _tiles = new Dictionary<Point, Tile>();
         _gateways = new List<Gateway>();
 
+        if (CurrentFloor == null)
+        {
+            CurrentFloor = this;
+        }
+
         var rooms = GetComponentsInChildren<Room>();
         foreach (var room in rooms)
         {
@@ -36,10 +41,7 @@ public class Floor : MonoBehaviour
 
     void Start()
     {
-        if (CurrentFloor == null)
-        {
-            CurrentFloor = this;
-        }
+        
         MovementSystem.Instance.SetCurrentFloor(this);
         var rooms = GetComponentsInChildren<Room>();
         

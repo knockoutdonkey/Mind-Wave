@@ -38,7 +38,7 @@ public class MovementSystem : MonoBehaviour {
         _currentFloor = floor;
     }
 
-    public List<Tile> FindPath(Tile startTile, Tile endTile) {
+    public static List<Tile> FindPath(Tile startTile, Tile endTile) {
         var nodes = new Dictionary<string, Node>();
 
         var startNode = new Node(0, startTile, null);
@@ -68,11 +68,19 @@ public class MovementSystem : MonoBehaviour {
                     for (int x = -1; x <= 1; x++) {
                         for (int y = -1; y <= 1; y++) {
                             var neighborPoint = new Point(nodePoint.X + x, nodePoint.Y + y);
-                            var neighborTile = _currentFloor.GetTile(neighborPoint);
+                            var neighborTile = Instance._currentFloor.GetTile(neighborPoint);
 
                             if (neighborTile != null && !neighborTile.blocking) {
                                 var extraDistance = Mathf.Sqrt(x * x + y * y);
-                                var newDistance = node.Distance + extraDistance;
+                                var newDistance = node.Distance;
+                                if (extraDistance > 1 && neighborTile.GetComponent<Gateway>() != null)
+                                {
+                                    newDistance += 2;
+                                }
+                                else
+                                {
+                                    newDistance += extraDistance;
+                                }
                                 var newNode = new Node(newDistance, neighborTile, node);
 
                                 Node oldNode;
@@ -91,7 +99,7 @@ public class MovementSystem : MonoBehaviour {
         return new List<Tile>();
     }
 
-    private List<Tile> CreatePath(Node targetNode) {
+    private static List<Tile> CreatePath(Node targetNode) {
         var path = new List<Tile>();
         var currentNode = targetNode;
 
