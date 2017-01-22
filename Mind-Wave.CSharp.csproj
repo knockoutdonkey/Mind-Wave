@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Actor\Actor.cs" />
+    <Compile Include="Assets\Scripts\Actor\ActorAnimator.cs" />
     <Compile Include="Assets\Scripts\Actor\ActorMover.cs" />
     <Compile Include="Assets\Scripts\Actor\ActorSystem.cs" />
     <Compile Include="Assets\Scripts\Actor\Path.cs" />

@@ -8,6 +8,8 @@ public class ActorMover : MonoBehaviour {
     public float MoveTimePerTile = 1f;
 
     private Path _path;
+
+    private ActorAnimator _actorAnimator;
     private bool _moving;
     private Actor _actor;
 
@@ -27,6 +29,7 @@ public class ActorMover : MonoBehaviour {
     public void SetPath(Path path)
     {
         _path = path;
+        _actorAnimator = GetComponent<ActorAnimator>();
     }
 
     void Update() {
@@ -36,6 +39,11 @@ public class ActorMover : MonoBehaviour {
     }
 
     private IEnumerator MoveToNextPoint() {
+
+        if (_actorAnimator != null) {
+            _actorAnimator.SetWalkingSpeed(MoveTimePerTile);
+        }
+
         _moving = true;
 
         var currentTime = 0f;
@@ -65,6 +73,11 @@ public class ActorMover : MonoBehaviour {
         if (_path.Tiles.Count == 0 && _path.EndTable != null)
         {
             _actor.swapWithTable(_path.EndTable);
+        }
+
+        if (_actorAnimator != null) {
+            Debug.Log("hey");
+            _actorAnimator.SetWalkingSpeed(0f);
         }
         _moving = false;
     }
