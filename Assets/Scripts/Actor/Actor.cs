@@ -71,8 +71,8 @@ public class Actor : MonoBehaviour {
         Holdable temp = this.item;
         this.item = table.heldItem;
         table.heldItem = temp;
-        Holdable.moveItem(table.heldItem, table.transform.localPosition);
-        Holdable.moveItem(item, this.transform.localPosition);
+        Holdable.moveItem(table.heldItem, table.transform.localPosition + new Vector3(0f, .25f, 0f));
+        Holdable.moveItem(item, this.transform.localPosition + new Vector3(0f, 0f, -1f));
     }
 
     public void runAway(Room ScaryRoom)

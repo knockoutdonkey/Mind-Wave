@@ -70,7 +70,7 @@ public class ActorMover : MonoBehaviour {
         while (currentTime < moveTime) {
             currentTime += Time.deltaTime;
             transform.localPosition = Vector3.Lerp(startPostion, targetPosition, currentTime / moveTime);
-            Holdable.moveItem(_actor.item, transform.localPosition);
+            Holdable.moveItem(_actor.item, transform.localPosition + new Vector3(0, 0, -1));
             yield return null;
         }
 

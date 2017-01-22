@@ -17,7 +17,7 @@ public class LayeringSystem : MonoBehaviour {
 
             for (int i = 1; i < transform.childCount; i++) {
                 var nextChild = transform.GetChild(i);
-                if (child.localPosition.y < nextChild.localPosition.y) {
+                if (child.localPosition.y * 1000 + child.localPosition.z < nextChild.localPosition.y * 1000 + nextChild.localPosition.z) {
                     nextChild.SetSiblingIndex(i - 1);
                     updated = true;
                 } else {
