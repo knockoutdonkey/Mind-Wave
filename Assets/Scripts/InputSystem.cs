@@ -58,7 +58,7 @@ public class InputSystem : MonoBehaviour {
     }
 
     private List<RaycastResult> Raycast() {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+      //  var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         PointerEventData ped = new PointerEventData(null);
         ped.position = Input.mousePosition;
         List<RaycastResult> results = new List<RaycastResult>();

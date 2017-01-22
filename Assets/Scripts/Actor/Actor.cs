@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Security.Authentication;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class Actor : MonoBehaviour {
 
     private ActorMover _actorMover;
     public Tile HomeTile;
+    public Holdable item;
     
     public void Awake() {
         var selectTarget = GetComponent<SelectTarget>();
@@ -38,8 +40,9 @@ public class Actor : MonoBehaviour {
         }
     }
 
-    public void GivePath(List<Tile> path) {
-        foreach (var tile in path) {
+    public void GivePath(Path path) {
+        Floor.GetCurrentFloor().TempColorRoomTiles();
+        foreach (var tile in path.Tiles) {
             tile.Highlight();
         }
 
@@ -47,4 +50,15 @@ public class Actor : MonoBehaviour {
             _actorMover.SetPath(path);
         }
     }
+
+    public void swapWithTable(Table table)
+    {
+        Holdable temp = this.item;
+        this.item = table.heldItem;
+        table.heldItem = temp;
+        Holdable.moveItem(table.heldItem, table.transform.localPosition);
+        Holdable.moveItem(item, this.transform.localPosition);
+    }
+
+
 }

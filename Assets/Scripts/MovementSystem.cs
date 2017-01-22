@@ -28,7 +28,30 @@ public class MovementSystem : MonoBehaviour {
                 return;
             }
 
-            var path = FindPath(startTile, endTile);
+            var path = new Path(FindPath(startTile, endTile));
+
+            actor.GivePath(path);
+        }
+    }
+
+    public void SelectTile(Tile tile, Table endTable)
+    {
+        SelectedTile = tile;
+        var actor = ActorSystem.Instance.SelectedActor;
+        if (actor != null)
+        {
+            var actorPos = actor.transform.localPosition;
+
+            var startTile = _currentFloor.GetTile(actorPos);
+            var endTile = SelectedTile;
+
+            if (startTile == null)
+            {
+                Debug.Log("Character is not on a tile: " + actorPos);
+                return;
+            }
+
+            var path = new Path(FindPath(startTile, endTile), endTable);
 
             actor.GivePath(path);
         }

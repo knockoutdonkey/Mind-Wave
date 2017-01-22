@@ -47,14 +47,18 @@ public class Floor : MonoBehaviour
         
         foreach (var room in rooms)
         {
-            var gateways = room.GetComponentsInChildren<Gateway>();
+            var gateways = room.GetComponents<Gateway>();
             foreach (var gate in gateways)
             {
                 gate.findConnectedRooms(this);
                 _gateways.Add(gate);
             }
+            
         }
-
+        if (Radio.instance != null)
+        {
+            Radio.checkRadio();
+        }
     }
 
 

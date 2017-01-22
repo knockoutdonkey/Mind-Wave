@@ -28,3 +28,4 @@ Build
 
 # Visual Studios
 .vs
+*.suo

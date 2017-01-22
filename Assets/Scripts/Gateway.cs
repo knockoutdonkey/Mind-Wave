@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Gateway : MonoBehaviour
 {
 
     public bool open;
-
-    public Tile Exit;
 
     public List<Room> _rooms;
 
@@ -18,23 +17,36 @@ public class Gateway : MonoBehaviour
 
     public void findConnectedRooms(Floor floor)
     {
-        addRoom(floor, 1, 0);
-        addRoom(floor, -1, 0);
-        addRoom(floor, 0, 1);
-        addRoom(floor, 0, -1);
+        Room room = this.GetComponent<Room>();
+        if (room != null)
+        {
+            var Tiles = room.GetComponentsInChildren<Tile>();
+            foreach (Tile tile in Tiles)
+            {
+                addRoom(floor, 1, 0,room,tile);
+                addRoom(floor, -1, 0, room, tile);
+                addRoom(floor, 0, 1, room, tile);
+                addRoom(floor, 0, -1, room, tile);
+            }
+        }
+
     }
 
-    private void addRoom(Floor floor, int xOffset, int yOffset)
+
+    private void addRoom(Floor floor, int xOffset, int yOffset,Room gateRoom, Tile gateTile)
     {
-        var gateTile = GetComponent<Tile>();
         var neighborPoint = new Point(gateTile.transform.localPosition, xOffset, yOffset);
         var neighborTile = floor.GetTile(neighborPoint);
         if (neighborTile != null)
         {
             Room connectedRoom = neighborTile.GetComponentInParent<Room>();
-            _rooms.Add(connectedRoom);
-            connectedRoom.AddGateway(this);
+            if (connectedRoom != gateRoom)
+            {
+                _rooms.Add(connectedRoom);
+                connectedRoom.AddGateway(this);
+            }
         }
 
     }
+
 }

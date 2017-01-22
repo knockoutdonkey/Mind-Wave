@@ -22,6 +22,7 @@ public class ActorSystem : MonoBehaviour {
     public void SelectActor(Actor actor) {
         Floor currentFloor = Floor.GetCurrentFloor();
 
+        
         Tile actorsTile = currentFloor.GetTile(actor.transform.localPosition);
 
         Radio.checkRadio();
@@ -33,19 +34,22 @@ public class ActorSystem : MonoBehaviour {
             if (SelectedActor == actor)
             {
                 SelectedActor.SetSelected(false);
-                SelectedActor.GivePath(MovementSystem.FindPath(actorsTile, actor.HomeTile));
+                SelectedActor.GivePath(new Path(MovementSystem.FindPath(actorsTile, actor.HomeTile)));
+                SelectedActor = null;
             }
-            if (SelectedActor != null)
+            else
             {
-                SelectedActor.SetSelected(false);
-            }
-
-            SelectedActor = (SelectedActor == actor) ? null : actor;
-
-            if (SelectedActor != null)
-            {
-                SelectedActor.SetSelected(true);
+                if (SelectedActor != null)
+                {
+                    Tile oldActorTile = currentFloor.GetTile(SelectedActor.transform.localPosition);
+                    SelectedActor.GivePath(new Path(MovementSystem.FindPath(oldActorTile, SelectedActor.HomeTile)));
+                    SelectedActor.SetSelected(false);
+                   
+                }
+               
+                    SelectedActor = actor;
+                    SelectedActor.SetSelected(true);
             }
         }
     }
-}
+} 
