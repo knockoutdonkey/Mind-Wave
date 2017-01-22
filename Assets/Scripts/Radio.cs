@@ -14,13 +14,13 @@ public class Radio : MonoBehaviour
         instance = this;
     }
 
-
-
-    public void checkRadio()
+    public static void checkRadio()
     {
-        currentLocation = Floor.GetCurrentFloor().GetTile(this.transform.localPosition).GetComponentInParent<Room>();
+        if (instance == null) return;
+
+        instance.currentLocation = Floor.GetCurrentFloor().GetTile(instance.transform.localPosition).GetComponentInParent<Room>();
         Floor.GetCurrentFloor().CleanRadioWaves();
-        currentLocation.SendRadioWaves();
+        instance.currentLocation.SendRadioWaves();
     }
 
 }

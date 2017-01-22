@@ -24,8 +24,8 @@ public class ActorSystem : MonoBehaviour {
 
         Tile actorsTile = currentFloor.GetTile(actor.transform.localPosition);
         Logger.Log(actorsTile);
-       
-        Radio.instance.checkRadio();
+
+        Radio.checkRadio();
         Floor.GetCurrentFloor().TempColorRoomTiles();
         Room actorsRoom = actorsTile.GetComponentInParent<Room>();
         if (actorsRoom.radioWaveActive)
