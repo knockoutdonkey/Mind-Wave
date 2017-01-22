@@ -57,7 +57,7 @@ public class Floor : MonoBehaviour
         }
         if (Radio.instance != null)
         {
-            Radio.checkRadio();
+            Radio.checkRadio(ActorType.None);
         }
     }
 
@@ -89,7 +89,7 @@ public class Floor : MonoBehaviour
         }
     }
 
-    public void TempColorRoomTiles()
+    public void TempColorRoomTiles(ActorType actorType)
     {
         var rooms = GetComponentsInChildren<Room>();
         foreach (var room in rooms)

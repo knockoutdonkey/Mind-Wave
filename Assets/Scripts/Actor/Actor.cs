@@ -10,6 +10,7 @@ public class Actor : MonoBehaviour {
     private ActorMover _actorMover;
     public Tile HomeTile;
     public Holdable item;
+    public ActorType Type;
     
     public void Awake() {
         var selectTarget = GetComponent<SelectTarget>();
@@ -41,7 +42,7 @@ public class Actor : MonoBehaviour {
     }
 
     public void GivePath(Path path) {
-        Floor.GetCurrentFloor().TempColorRoomTiles();
+        Floor.GetCurrentFloor().TempColorRoomTiles(Type);
         foreach (var tile in path.Tiles) {
             tile.Highlight();
         }
