@@ -98,22 +98,22 @@ public class Floor : MonoBehaviour
             {
                 switch (actorType) {
                     case ActorType.None:
-                        room.colorTiles(Color.white);
+                        room.colorTiles(Color.white, true);
                         break;
                     case ActorType.Mom:
-                        room.colorTiles(Color.yellow);
+                        room.colorTiles(Color.yellow, true);
                         break;
                     case ActorType.Maid:
-                        room.colorTiles(Color.green);
+                        room.colorTiles(Color.green, true);
                         break;
                     case ActorType.Grampa:
-                        room.colorTiles(Color.red);
+                        room.colorTiles(Color.red, true);
                         break;
                 }
             }
             else
             {
-                room.colorTiles(Color.grey);
+                room.colorTiles(Color.white, false);
             }
     }
     }

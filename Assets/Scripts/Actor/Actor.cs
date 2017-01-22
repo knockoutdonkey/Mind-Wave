@@ -43,9 +43,6 @@ public class Actor : MonoBehaviour {
 
     public void GivePath(Path path) {
         Floor.GetCurrentFloor().TempColorRoomTiles(Type);
-        foreach (var tile in path.Tiles) {
-            tile.Highlight();
-        }
 
         if (_actorMover != null) {
             _actorMover.SetPath(path);

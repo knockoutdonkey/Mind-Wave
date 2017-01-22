@@ -22,19 +22,17 @@ public class Tile : MonoBehaviour {
         return new Point(transform.localPosition);
     }
 
-    public void Highlight() {
-        var image = GetComponent<Image>();
-        if (image != null) {
-            image.color = Color.cyan;
-        }
-    }
-
-    public void Highlight(Color color)
+    public void Highlight(Color color, bool isWavy)
     {
         var image = GetComponent<Image>();
-        if (image != null)
-        {
-            image.color = color;
+        if (image == null) return;
+
+        if (isWavy) {
+            image.material = MaterialReference.GetWavyMaterial();
+        } else {
+            image.material = null;
         }
+
+        image.color = color;
     }
 }
