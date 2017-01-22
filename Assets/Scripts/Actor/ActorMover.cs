@@ -7,6 +7,7 @@ public class ActorMover : MonoBehaviour {
 
     public float MoveTimePerTile = 1f;
 
+    private ActorAnimator _actorAnimator;
     private List<Tile> _path;
     private bool _moving;
 
@@ -16,6 +17,7 @@ public class ActorMover : MonoBehaviour {
 
     public void SetPath(List<Tile> path) {
         _path = path;
+        _actorAnimator = GetComponent<ActorAnimator>();
     }
 
     void Update() {
@@ -25,6 +27,11 @@ public class ActorMover : MonoBehaviour {
     }
 
     private IEnumerator MoveToNextPoint() {
+
+        if (_actorAnimator != null) {
+            _actorAnimator.SetWalkingSpeed(MoveTimePerTile);
+        }
+
         _moving = true;
 
         var currentTime = 0f;
@@ -46,6 +53,11 @@ public class ActorMover : MonoBehaviour {
             currentTime += Time.deltaTime;
             transform.localPosition = Vector3.Lerp(startPostion, targetPosition, currentTime / moveTime);
             yield return null;
+        }
+
+        if (_actorAnimator != null) {
+            Debug.Log("hey");
+            _actorAnimator.SetWalkingSpeed(0f);
         }
 
         _moving = false;
