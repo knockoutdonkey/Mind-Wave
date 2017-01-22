@@ -50,7 +50,7 @@ public class ActorMover : MonoBehaviour {
         var startPostion = transform.localPosition;
 
         var targetPosition = _path.Tiles[0].transform.localPosition;
-        tileCheck();
+        roomCheck();
         _path.Tiles.RemoveAt(0);
 
         var distance = (targetPosition - startPostion).magnitude;
@@ -68,8 +68,7 @@ public class ActorMover : MonoBehaviour {
             Holdable.moveItem(_actor.item, transform.localPosition);
             yield return null;
         }
-        Logger.Log(_path.Tiles.Count);
-        Logger.Log(_path.EndTable == null);
+
         if (_path.Tiles.Count == 0 && _path.EndTable != null)
         {
             _actor.swapWithTable(_path.EndTable);
@@ -86,19 +85,20 @@ public class ActorMover : MonoBehaviour {
         transform.localScale = (isRight) ? new Vector3(-1, 1, 1) : new Vector3(1, 1, 1);
     }
 
-    private void tileCheck()
+    private void roomCheck()
     {
-        if (_path.Tiles[0].GetComponent<Gateway>() != null)
+        Room checkRoom = _path.Tiles[0].GetComponentInParent<Room>();
+        
+        if (checkRoom != null)
         {
-            _path.Tiles[0].GetComponent<Gateway>().open = true;
-            Radio.checkRadio();
-        }
-        if (_path.Tiles[0].GetComponentInParent<Room>() != null)
-        {
-            Debug.Log(_path.Tiles[0].GetComponentInParent<Room>());
             if (!_path.Tiles[0].GetComponentInParent<Room>().radioWaveActive)
             {
                 ActorSystem.Instance.SelectActor(ActorSystem.Instance.SelectedActor);
+            }
+            if (checkRoom.GetComponent<Gateway>() != null)
+            {
+                checkRoom.GetComponent<Gateway>().open = true;
+                Radio.checkRadio();
             }
         }
     }

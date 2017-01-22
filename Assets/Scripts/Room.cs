@@ -41,7 +41,6 @@ public class Room : MonoBehaviour {
 
     public void SendRadioWaves()
     {
-        radioWaveActive = true;
         this.radioWaveActive = true;
         foreach (Gateway gateway in _gateways)
         {
@@ -50,7 +49,20 @@ public class Room : MonoBehaviour {
                 foreach (Room room in gateway._rooms)
                 {
                     room.radioWaveActive = true;
+                    foreach (Gateway Othergateway in room._gateways)
+                    {
+                        var OthergateRoom = Othergateway.GetComponent<Room>();
+                        if (OthergateRoom != null)
+                        {
+                            OthergateRoom.radioWaveActive = true;
+                        }
+                    }
                 }
+            }
+            var gateRoom = gateway.GetComponent<Room>();
+            if (gateRoom != null)
+            {
+                gateRoom.radioWaveActive = true;
             }
         }
     }

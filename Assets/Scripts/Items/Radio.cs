@@ -26,6 +26,7 @@ public class Radio : MonoBehaviour
         instance.currentLocation = Floor.GetCurrentFloor().GetTile(instance.transform.localPosition).GetComponentInParent<Room>();
         Floor.GetCurrentFloor().CleanRadioWaves();
         instance.currentLocation.SendRadioWaves();
+        Floor.GetCurrentFloor().TempColorRoomTiles();
     }
 
 }
