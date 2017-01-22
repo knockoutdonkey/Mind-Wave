@@ -7,6 +7,8 @@ public class DoorAnimator : MonoBehaviour {
     public Sprite DoorOpen;
     public Sprite DoorClosed;
 
+    public GameObject LockSymbol;
+
     public Gateway ControllingGateway;
 
     private Image _doorImage;
@@ -25,5 +27,7 @@ public class DoorAnimator : MonoBehaviour {
         } else {
             _doorImage.sprite = DoorClosed;
         }
+
+        LockSymbol.SetActive(ControllingGateway.locked);
     }
 }
