@@ -49,7 +49,7 @@ public class ActorSystem : MonoBehaviour {
             }
         }
 
-        var actorType = (SelectedActor == null) ? ActorType.None : actor.Type;
-        Radio.checkRadio(actorType);
+        // This has to happen after actor selection.
+        Radio.checkRadio();
     }
 } 

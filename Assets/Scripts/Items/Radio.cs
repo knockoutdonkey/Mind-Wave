@@ -18,18 +18,20 @@ public class Radio : MonoBehaviour
 
     void Start()
     {
-        checkRadio(ActorType.None);
+        checkRadio();
     }
 
-    public static void checkRadio(ActorType actorType)
+    public static void checkRadio()
     {
         if (instance == null) return;
+
+        var actorType = (ActorSystem.Instance.SelectedActor == null) ? ActorType.None : ActorSystem.Instance.SelectedActor.Type;
 
         instance.currentLocation = Floor.GetCurrentFloor().GetTile(instance.transform.localPosition).GetComponentInParent<Room>();
         Floor.GetCurrentFloor().CleanRadioWaves();
         instance.currentLocation.SendRadioWaves();
-        Floor.GetCurrentFloor().TempColorRoomTiles(actorType);
 
+        Floor.GetCurrentFloor().TempColorRoomTiles(actorType);
         instance.PlayRadioSound(actorType);
     }
 
@@ -40,10 +42,10 @@ public class Radio : MonoBehaviour
             source.Play();
             switch (soundType) {
                 case ActorType.None:
-                    source.pitch = .7f;
+                    source.pitch = .4f;
                     break;
                 case ActorType.Mom:
-                    source.pitch = 1.3f;
+                    source.pitch = 1.4f;
                     break;
                 case ActorType.Maid:
                     source.pitch = 1f;
@@ -52,7 +54,6 @@ public class Radio : MonoBehaviour
                     source.pitch = -.3f;
                     break;
             }
-
             _currentType = soundType;
         }
     }

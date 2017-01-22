@@ -97,7 +97,7 @@ public class ActorMover : MonoBehaviour {
             if (checkRoom.GetComponent<Gateway>() != null)
             {
                 checkRoom.GetComponent<Gateway>().open = true;
-                Radio.checkRadio(ActorType.None);
+                Radio.checkRadio();
             }
         }
     }

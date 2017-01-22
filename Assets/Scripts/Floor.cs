@@ -57,7 +57,7 @@ public class Floor : MonoBehaviour
         }
         if (Radio.instance != null)
         {
-            Radio.checkRadio(ActorType.None);
+            Radio.checkRadio();
         }
     }
 
