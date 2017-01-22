@@ -6,6 +6,8 @@ public class InputSystem : MonoBehaviour {
 
     public UnityEngine.UI.GraphicRaycaster _graphicsRaycaster;
 
+    public float CameraSpeed = 1f;
+
 	void Start () {
 		
 	}
@@ -38,6 +40,21 @@ public class InputSystem : MonoBehaviour {
         if (Input.GetKeyDown("r")) {
             SceneLoader.RestartCurrentLevel();
         }
+
+        var cameraDirection = Vector3.zero;
+        if (Input.GetKey("w")) {
+            cameraDirection += Vector3.up;
+        }
+        if (Input.GetKey("a")) {
+            cameraDirection += Vector3.left;
+        }
+        if (Input.GetKey("s")) {
+            cameraDirection += Vector3.down;
+        }
+        if (Input.GetKey("d")) {
+            cameraDirection += Vector3.right;
+        }
+        MoveCamera(cameraDirection);
     }
 
     private List<RaycastResult> Raycast() {
@@ -47,5 +64,9 @@ public class InputSystem : MonoBehaviour {
         List<RaycastResult> results = new List<RaycastResult>();
         _graphicsRaycaster.Raycast(ped, results);
         return results;
+    }
+    
+    private void MoveCamera(Vector3 direction) {
+        Camera.main.transform.Translate(direction * CameraSpeed * Time.deltaTime);
     }
 }

@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\LayeringSystem.cs" />
     <Compile Include="Assets\Scripts\MoveTarget.cs" />
     <Compile Include="Assets\Scripts\MovementSystem.cs" />
+    <Compile Include="Assets\Scripts\PixelPerfectCamera.cs" />
     <Compile Include="Assets\Scripts\Radio.cs" />
     <Compile Include="Assets\Scripts\Room.cs" />
     <Compile Include="Assets\Scripts\SceneLoader.cs" />

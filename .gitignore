@@ -25,3 +25,6 @@ test-results
 # Custom
 Entitas Shmup.sln
 Build
+
+# Visual Studios
+.vs

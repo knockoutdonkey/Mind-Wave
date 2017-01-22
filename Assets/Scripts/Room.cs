@@ -41,6 +41,7 @@ public class Room : MonoBehaviour {
 
     public void SendRadioWaves()
     {
+        radioWaveActive = true;
         foreach (Gateway gateway in _gateways)
         {
             foreach (Room room in gateway._rooms)
