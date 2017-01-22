@@ -14,6 +14,11 @@ public class Radio : MonoBehaviour
         instance = this;
     }
 
+    void Start()
+    {
+        checkRadio();
+    }
+
     public static void checkRadio()
     {
         if (instance == null) return;
