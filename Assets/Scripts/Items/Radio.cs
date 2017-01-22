@@ -23,10 +23,10 @@ public class Radio : MonoBehaviour
     {
         if (instance == null) return;
 
-        instance.currentLocation = Floor.GetCurrentFloor().GetTile(instance.transform.localPosition).GetComponentInParent<Room>();
-        Floor.GetCurrentFloor().CleanRadioWaves();
+        instance.currentLocation = Floor.CurrentFloor.GetTile(instance.transform.localPosition).GetComponentInParent<Room>();
+        Floor.CurrentFloor.CleanRadioWaves();
         instance.currentLocation.SendRadioWaves();
-        Floor.GetCurrentFloor().TempColorRoomTiles();
+        Floor.CurrentFloor.TempColorRoomTiles();
     }
 
 }

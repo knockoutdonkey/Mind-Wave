@@ -21,15 +21,16 @@ public class Furniture : MonoBehaviour
     }
     // Use this for initialization
     void Start () {
-        _tile = Floor.GetCurrentFloor().GetTile(this.transform.localPosition);
+        _tile = Floor.CurrentFloor.GetTile(this.transform.localPosition);
     }
 
     private void SelectTarget_Selected(object sender, EventArgs e)
     {
 
-        if (_tile != null && ActorSystem.Instance.SelectedActor != null) { 
-            ActorSystem.Instance.SelectedActor.HomeTile = _tile;
-            MovementSystem.Instance.SelectTile(_tile);
+        if (_tile != null && ActorSystem.Instance.SelectedActor != null) {
+            MovementSystem.Instance.SelectTile(_tile, this);
         }
     }
+
+    public Tile tile { get { return _tile;} }
 }

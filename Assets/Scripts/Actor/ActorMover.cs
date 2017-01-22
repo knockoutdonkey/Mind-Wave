@@ -50,7 +50,12 @@ public class ActorMover : MonoBehaviour {
         var startPostion = transform.localPosition;
 
         var targetPosition = _path.Tiles[0].transform.localPosition;
-        roomCheck();
+        if (!roomCheck())
+        {
+            _moving = false;
+            yield break;
+        }
+        _actor.LastTile = _path.Tiles[0];
         _path.Tiles.RemoveAt(0);
 
         var distance = (targetPosition - startPostion).magnitude;
@@ -69,9 +74,29 @@ public class ActorMover : MonoBehaviour {
             yield return null;
         }
 
-        if (_path.Tiles.Count == 0 && _path.EndTable != null)
+        if (_path.Tiles.Count == 0)
         {
-            _actor.swapWithTable(_path.EndTable);
+            if (  _path.EndTable != null)
+            {
+                _actor.swapWithTable(_path.EndTable);
+            }
+
+            if (_path.EndSeat != null && _actor.willSit)
+            {
+                _actor.seat =_path.EndSeat;
+                _actor.HomeTile = _path.EndSeat.tile;
+                _actor.sitting = true;
+                if (_actor.Scary)
+                foreach (Actor checkActor in ActorSystem.Instance.AllActors)
+                {
+                    if (checkActor.GetCurrentRoom() == _actor.GetCurrentRoom() &&  checkActor != _actor)
+                    {
+                        checkActor.runAway(checkActor.GetCurrentRoom());
+                    }
+
+                }
+
+            }
         }
 
         if (_actorAnimator != null) {
@@ -84,21 +109,59 @@ public class ActorMover : MonoBehaviour {
         transform.localScale = (isRight) ? new Vector3(-1, 1, 1) : new Vector3(1, 1, 1);
     }
 
-    private void roomCheck()
+    private bool roomCheck()
     {
         Room checkRoom = _path.Tiles[0].GetComponentInParent<Room>();
-        
+
         if (checkRoom != null)
         {
+
+
+            var gate = checkRoom.GetComponent<Gateway>();
+            if (gate != null)
+            {
+                if (gate.locked)
+                {
+                    if (_actor.item != null && _actor.item.isKey)
+                    {
+                        gate.open = true;
+                        gate.locked = false;
+                        Holdable key = _actor.item;
+                        _actor.item = null;
+                        Destroy(key.gameObject);
+                        _actor.LastGateway = gate;
+                        Radio.checkRadio();
+                    }
+                    else
+                    {
+                        _actor.GivePath(new Path(new List<Tile>() {_actor.LastTile}));
+                        return false;
+                    }
+                }
+                else
+                {
+                    gate.open = true;
+                    _actor.LastGateway = gate;
+                    Radio.checkRadio();
+                }
+            }
+
             if (!_path.Tiles[0].GetComponentInParent<Room>().radioWaveActive)
             {
                 ActorSystem.Instance.SelectActor(ActorSystem.Instance.SelectedActor);
             }
-            if (checkRoom.GetComponent<Gateway>() != null)
+
+            foreach (Actor checkActor in ActorSystem.Instance.AllActors)
             {
-                checkRoom.GetComponent<Gateway>().open = true;
-                Radio.checkRadio();
+                if (checkActor.GetCurrentRoom() == checkRoom && checkActor.Scary && checkActor.sitting && checkActor != _actor)
+                {
+                    _actor.runAway(checkRoom);
+                }
+                
             }
+
         }
+        return true;
     }
+
 }

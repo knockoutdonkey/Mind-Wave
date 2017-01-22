@@ -10,19 +10,26 @@ public class Actor : MonoBehaviour {
     private ActorMover _actorMover;
     public Tile HomeTile;
     public Holdable item;
+    public Gateway LastGateway;
+    public Tile LastTile;
+    public bool willSit = false; 
+    public Furniture seat;
+    public bool sitting;
+    public bool Scary = false;
+    
     
     public void Awake() {
         var selectTarget = GetComponent<SelectTarget>();
         if (selectTarget != null) {
             selectTarget.Selected += SelectTarget_Selected;
         }
-
         _actorMover = GetComponent<ActorMover>();
     }
 
     public void Start() {
         ActorSystem.Instance.RegisterActor(this);
-        HomeTile = Floor.GetCurrentFloor().GetTile(this.transform.localPosition);
+        HomeTile = Floor.CurrentFloor.GetTile(this.transform.localPosition);
+        LastTile = HomeTile;
     }
 
     private void SelectTarget_Selected(object sender, EventArgs e) {
@@ -40,11 +47,22 @@ public class Actor : MonoBehaviour {
         }
     }
 
+    public Tile GetCurrentTile()
+    {
+        return Floor.CurrentFloor.GetTile(transform.localPosition);
+    }
+
+    public Room GetCurrentRoom()
+    {
+        return Floor.CurrentFloor.GetTile(transform.localPosition).GetComponentInParent<Room>();
+    }
+
     public void GivePath(Path path) {
-        Floor.GetCurrentFloor().TempColorRoomTiles();
+        Floor.CurrentFloor.TempColorRoomTiles();
         foreach (var tile in path.Tiles) {
             tile.Highlight();
         }
+        sitting = false;
 
         if (_actorMover != null) {
             _actorMover.SetPath(path);
@@ -60,5 +78,32 @@ public class Actor : MonoBehaviour {
         Holdable.moveItem(item, this.transform.localPosition);
     }
 
+    public void runAway(Room ScaryRoom)
+    {
+        Gateway safeGate = LastGateway;
+        if (safeGate == null)
+        {
+            foreach (Gateway attachedGate in GetCurrentRoom()._gateways)
+            {
+                if (!attachedGate.vent)
+                {
+                    safeGate = attachedGate;
+                }
+            }
+        }
 
+        Tile gotoTile = HomeTile;
+        if (HomeTile.GetRoom() == ScaryRoom)
+        {
+            foreach (Room safeRoom in safeGate._rooms)
+            {
+                if (safeRoom != ScaryRoom)
+                {
+                    gotoTile = safeGate.findSafeTile(ScaryRoom);
+                }
+            }
+        }
+
+        GivePath(new Path(MovementSystem.FindPath(this.GetCurrentTile(), gotoTile)));
+    }
 }

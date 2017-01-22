@@ -20,7 +20,7 @@ public class Table : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        _tile = Floor.GetCurrentFloor().GetTile(this.transform.localPosition);
+        _tile = Floor.CurrentFloor.GetTile(this.transform.localPosition);
     }
 
     private void SelectTarget_Selected(object sender, EventArgs e)

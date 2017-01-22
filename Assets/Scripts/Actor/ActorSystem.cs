@@ -20,29 +20,27 @@ public class ActorSystem : MonoBehaviour {
     }
 
     public void SelectActor(Actor actor) {
-        Floor currentFloor = Floor.GetCurrentFloor();
-
         
-        Tile actorsTile = currentFloor.GetTile(actor.transform.localPosition);
+        Tile actorsTile = Floor.CurrentFloor.GetTile(actor.transform.localPosition);
 
         Radio.checkRadio();
 
-        Floor.GetCurrentFloor().TempColorRoomTiles();
+        Floor.CurrentFloor.TempColorRoomTiles();
         Room actorsRoom = actorsTile.GetComponentInParent<Room>();
         if (actorsRoom.radioWaveActive)
         {
             if (SelectedActor == actor)
             {
                 SelectedActor.SetSelected(false);
-                SelectedActor.GivePath(new Path(MovementSystem.FindPath(actorsTile, actor.HomeTile)));
+                SelectedActor.GivePath(new Path(MovementSystem.FindPath(actorsTile, SelectedActor.seat != null ? SelectedActor.seat.tile :SelectedActor.HomeTile), SelectedActor.seat));
                 SelectedActor = null;
             }
             else
             {
                 if (SelectedActor != null)
                 {
-                    Tile oldActorTile = currentFloor.GetTile(SelectedActor.transform.localPosition);
-                    SelectedActor.GivePath(new Path(MovementSystem.FindPath(oldActorTile, SelectedActor.HomeTile)));
+                    Tile oldActorTile = Floor.CurrentFloor.GetTile(SelectedActor.transform.localPosition);
+                    SelectedActor.GivePath(new Path(MovementSystem.FindPath(oldActorTile, SelectedActor.seat != null ? SelectedActor.seat.tile : SelectedActor.HomeTile), SelectedActor.seat));
                     SelectedActor.SetSelected(false);
                    
                 }

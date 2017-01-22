@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
-    private static Floor CurrentFloor;
+    public static Floor CurrentFloor;
 
     private Dictionary<Point, Tile> _tiles;
     private List<Gateway> _gateways;
@@ -13,10 +13,8 @@ public class Floor : MonoBehaviour
         _tiles = new Dictionary<Point, Tile>();
         _gateways = new List<Gateway>();
 
-        if (CurrentFloor == null)
-        {
-            CurrentFloor = this;
-        }
+        CurrentFloor = this;
+
 
         var rooms = GetComponentsInChildren<Room>();
         foreach (var room in rooms)
@@ -34,11 +32,6 @@ public class Floor : MonoBehaviour
     }
 
 
-    public static Floor GetCurrentFloor()
-    {
-        return CurrentFloor;
-    }
-
     void Start()
     {
         
@@ -50,7 +43,7 @@ public class Floor : MonoBehaviour
             var gateways = room.GetComponents<Gateway>();
             foreach (var gate in gateways)
             {
-                gate.findConnectedRooms(this);
+                gate.findConnectedRooms();
                 _gateways.Add(gate);
             }
             

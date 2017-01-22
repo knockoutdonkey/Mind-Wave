@@ -5,7 +5,7 @@ using UnityEngine;
 public class Room : MonoBehaviour {
 
     private Dictionary<Point, Tile> _tiles;
-    private List<Gateway> _gateways;
+    public List<Gateway> _gateways;
 
     public bool radioWaveActive;
 
@@ -69,7 +69,7 @@ public class Room : MonoBehaviour {
 
     public void colorTiles(Color color)
     {
-        foreach (KeyValuePair<Point,Tile> tile in _tiles)
+        foreach (KeyValuePair<Point, Tile> tile in _tiles)
         {
             tile.Value.Highlight(color);
         }

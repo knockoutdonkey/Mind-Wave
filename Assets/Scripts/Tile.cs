@@ -22,6 +22,11 @@ public class Tile : MonoBehaviour {
         return new Point(transform.localPosition);
     }
 
+    public Room GetRoom()
+    {
+        return this.GetComponentInParent<Room>();
+    }
+
     public void Highlight() {
         var image = GetComponent<Image>();
         if (image != null) {

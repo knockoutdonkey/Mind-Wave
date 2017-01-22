@@ -8,6 +8,7 @@ public class Holdable : MonoBehaviour
 
 
     private Tile _tile;
+    public bool isKey = false;
 
 
     public void Awake()
@@ -22,7 +23,7 @@ public class Holdable : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _tile = Floor.GetCurrentFloor().GetTile(this.transform.localPosition);
+        _tile = Floor.CurrentFloor.GetTile(this.transform.localPosition);
     }
 
     private void SelectTarget_Selected(object sender, EventArgs e)
